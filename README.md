@@ -17,3 +17,6 @@ How to run sample PWA:
         npx http-server
 5. Now either go to http://localhost:8080 or in cmd there will your IP adress that you can go through to your app
 6. from there you can go to the 3 dots top right and around there will be an option to download app
+
+
+Kedar
