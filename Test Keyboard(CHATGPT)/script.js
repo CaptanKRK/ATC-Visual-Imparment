@@ -39,8 +39,8 @@ keys.forEach(key => {
     key.addEventListener('click', () => {
         inputField.value += key.textContent; // Append key to the input field
 
-        // Check if input matches the Word and update Word
-        if (inputField.value.trim() === Word.textContent) {
+        // Check if input matches the Word (trim and case-insensitive comparison)
+        if (inputField.value.trim().toLowerCase() === Word.textContent.trim().toLowerCase()) {
             setRandomWord(); // Set a new random word
             inputField.value = ''; // Clear the input field
         }
