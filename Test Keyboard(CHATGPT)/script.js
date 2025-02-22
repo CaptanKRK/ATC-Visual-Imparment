@@ -34,10 +34,23 @@ function setRandomWord() {
     }
 }
 
-// Add event listeners for each key
+Shift.addEventListener('click', () => {
+    shiftActive = true; 
+});
+
 keys.forEach(key => {
     key.addEventListener('click', () => {
-        inputField.value += key.textContent; // Append key to the input field
+        let keyval = key.textContent.trim();
+        
+        if (key === Shift) return;
+        
+        if (shiftActive) {
+            keyval = keyval.toUpperCase();
+            shiftActive = false; 
+        } else {
+            keyval = keyval.toLowerCase();
+        }
+        inputField.value += keyval; 
 
         // Check if input matches the Word (trim and case-insensitive comparison)
         if (inputField.value.trim().toLowerCase() === Word.textContent.trim().toLowerCase()) {
