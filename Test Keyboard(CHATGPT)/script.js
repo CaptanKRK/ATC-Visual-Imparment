@@ -5,6 +5,9 @@ const spaceKey = document.getElementById('space');
 const wordDisplay = document.getElementById('Word');
 const shiftKey = document.getElementById('shift'); // Define Shift key
 const capsLockKey = document.getElementById('capslock'); // Define Caps Lock key
+const tabkey = document.getElementById('tab');
+const enterkey = document.getElementById('enter');
+const errmes = document.getElementById('errmes');
 
 let wordsList = []; // Word list for dictionary
 let shiftActive = false; // Keeps track of shift key state
@@ -48,7 +51,7 @@ keys.forEach(key => {
     key.addEventListener('click', () => {
         let keyval = key.textContent.trim();
 
-        if (key === shiftKey || key === capsLockKey) return;
+        if (key === shiftKey || key === capsLockKey || key === tabkey) return;
 
         if (shiftActive || capsLockActive) {
             keyval = keyval.toUpperCase();
@@ -61,13 +64,18 @@ keys.forEach(key => {
         if (shiftActive) {
             shiftActive = false;
         }
-
-        if (inputField.value.trim().toLowerCase() === wordDisplay.textContent.trim().toLowerCase()) {
-            setRandomWord(); 
-            inputField.value = ''; 
-        }
     });
 });
+
+enterkey.addEventListener('click', () => {
+    if (inputField.value.trim().toLowerCase() === wordDisplay.textContent.trim().toLowerCase()) {
+        setRandomWord(); 
+        inputField.value = ''; 
+    } 
+    else{
+        errmes.textContent = 'Incorrect word! Try again.';
+    }
+})
 
 backspaceKey.addEventListener('click', () => {
     inputField.value = inputField.value.slice(0, -1);
