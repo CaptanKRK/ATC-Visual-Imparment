@@ -2,18 +2,21 @@ const inputField = document.getElementById('inputField');
 const keys = document.querySelectorAll('.key');
 const backspaceKey = document.getElementById('backspace');
 const spaceKey = document.getElementById('space');
-const Word = document.getElementById('Word');
+const wordDisplay = document.getElementById('Word');
+const shiftKey = document.getElementById('shift'); // Define Shift key
+const capsLockKey = document.getElementById('capslock'); // Define Caps Lock key
 
-let wordsList = []; // Initialize an empty array for words
+let wordsList = []; // Word list for dictionary
+let shiftActive = false; // Keeps track of shift key state
+let capsLockActive = false; // Keeps track of caps lock state
 
-// Function to load the dictionary
 async function loadDictionary() {
+
     try {
         const response = await fetch('./dictionary.txt');
-        const text = await response.text(); // Read the file as text
-        wordsList = text.split('\n').map(word => word.trim()); // Split lines and trim spaces
+        const text = await response.text();
+        wordsList = text.split('\n').map(word => word.trim());
 
-        // Set the first random word after loading
         if (wordsList.length > 0) {
             setRandomWord();
         } else {
@@ -24,51 +27,54 @@ async function loadDictionary() {
     }
 }
 
-// Function to set a random word in the Word element
 function setRandomWord() {
     if (wordsList.length > 0) {
         const randomIndex = Math.floor(Math.random() * wordsList.length);
-        Word.textContent = wordsList[randomIndex]; // Update Word's content
+        wordDisplay.textContent = wordsList[randomIndex];
     } else {
-        Word.textContent = 'No words available'; // Handle empty dictionary
+        wordDisplay.textContent = 'No words available';
     }
 }
 
-Shift.addEventListener('click', () => {
+shiftKey.addEventListener('click', () => {
     shiftActive = true; 
+});
+
+capsLockKey.addEventListener('click', () => {
+    capsLockActive = !capsLockActive; 
 });
 
 keys.forEach(key => {
     key.addEventListener('click', () => {
         let keyval = key.textContent.trim();
-        
-        if (key === Shift) return;
-        
-        if (shiftActive) {
+
+        if (key === shiftKey || key === capsLockKey) return;
+
+        if (shiftActive || capsLockActive) {
             keyval = keyval.toUpperCase();
-            shiftActive = false; 
         } else {
             keyval = keyval.toLowerCase();
         }
+
         inputField.value += keyval; 
 
-        // Check if input matches the Word (trim and case-insensitive comparison)
-        if (inputField.value.trim().toLowerCase() === Word.textContent.trim().toLowerCase()) {
-            setRandomWord(); // Set a new random word
-            inputField.value = ''; // Clear the input field
+        if (shiftActive) {
+            shiftActive = false;
+        }
+
+        if (inputField.value.trim().toLowerCase() === wordDisplay.textContent.trim().toLowerCase()) {
+            setRandomWord(); 
+            inputField.value = ''; 
         }
     });
 });
 
-// Backspace key functionality
 backspaceKey.addEventListener('click', () => {
-    inputField.value = inputField.value.slice(0, -1); // Remove the last character
+    inputField.value = inputField.value.slice(0, -1);
 });
 
-// Spacebar functionality
 spaceKey.addEventListener('click', () => {
-    inputField.value += ' '; // Add a space to the input field
+    inputField.value += ' ';
 });
 
-// Load the dictionary when the script runs
 loadDictionary();
