@@ -9,10 +9,16 @@
 </head>
 <body>
     <h1>Virtual Keyboard</h1>
+    <div class="top-controls">
+        <textarea id="inputField" readonly></textarea>
+        <div class="level-controls">
+            <span>Level: <span id="level">1</span></span>
+            <button id="levelDown">⬇️</button>
+            <button id="levelUp">⬆️</button>
+        </div>
+    </div>
     <h2 id="errmes"></h2>
-    <!-- Display the word and input field -->
     <div id="Word" class="word-display">Word</div>
-    <textarea id="inputField" placeholder="Click here to type" readonly></textarea>
 
     <!-- Virtual keyboard -->
     <div>
@@ -43,16 +49,16 @@
         <div id="keyboard">
             <ul class="keys">
                 <li class="key" >`</li>
-                <li class="key" >1</li>
-                <li class="key" >2</li>
-                <li class="key" >3</li>
-                <li class="key" >4</li>
-                <li class="key" >5</li>
-                <li class="key" >6</li>
-                <li class="key" >7</li>
-                <li class="key" >8</li>
-                <li class="key" >9</li>
-                <li class="key" >0</li>
+                <li class="key" id="1">1</li>
+                <li class="key" id="2">2</li>
+                <li class="key" id="3">3</li>
+                <li class="key" id="4">4</li>
+                <li class="key" id="5">5</li>
+                <li class="key" id="6">6</li>
+                <li class="key" id="7">7</li>
+                <li class="key" id="8">8</li>
+                <li class="key" id="9">9</li>
+                <li class="key" id="0">0</li>
                 <li class="key" >_</li>
                 <li class="key" >=</li>
                 <li id="backspace">backspace</li>
